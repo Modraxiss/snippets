@@ -1,7 +1,7 @@
 function displayMessage(ship, text, duration = 3000) {
-    clearTimeout(ship.custom.msgTimeout);
+    if (ship.custom.msgTimeout) clearTimeout(ship.custom.msgTimeout);
     ship.setUIComponent({
-        id: "text",
+        id: "message",
         position: [25, 82, 50, 5],
         visible: true,
         components: [
@@ -15,6 +15,7 @@ function displayMessage(ship, text, duration = 3000) {
         ]
     });
     ship.custom.msgTimeout = setTimeout(() => {
-        ship.setUIComponent({ id: "text", visible: false });
+        ship.setUIComponent({ id: "message", visible: false });
+        delete ship.custom.msgTimeout;
     }, duration);
 }
